@@ -1,9 +1,13 @@
-# nginx-etcd
-ETCD module for nginx
+# nginx-lua-etcd-announcer
+ETCD module which allows arbitrary keys to be set and refreshed from nginx.
+Supported features:
+* basic authentication
+* customizable TTL, timeout and refresh intervals
 
 ## Requirements
 * [lua-nginx-module](https://github.com/openresty/lua-nginx-module)
 * [lua-resty-http](https://github.com/pintsized/lua-resty-http)
+* cjson
 
 ## Configuration
 
