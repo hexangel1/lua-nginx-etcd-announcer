@@ -1,4 +1,4 @@
-# nginx-lua-etcd-announcer
+# lua-nginx-etcd-announcer
 A nginx module which allows arbitrary ETCD keys to be set and refreshed at periodic intervals.
 The most obvious application would be dynamic registration and discovery of upstream nginx instances in cojunction with other etcd-aware modules such as lua-resty-upstream-etcd or nginx-upsync-module.
 
