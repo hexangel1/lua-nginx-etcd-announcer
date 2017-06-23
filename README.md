@@ -1,5 +1,6 @@
 # nginx-lua-etcd-announcer
-ETCD module which allows arbitrary keys to be set and refreshed from nginx.
+nginx module which allows arbitrary ETCD keys to be set and refreshed at periodic intervals.
+
 Supported features:
 * basic authentication
 * customizable TTL, timeout and refresh intervals
