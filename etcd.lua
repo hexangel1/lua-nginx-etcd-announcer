@@ -232,7 +232,10 @@ function Client.update(self, key, value, opts)
     return self:set(uri_add_param(key, "prevExist", "true"), value, opts)
 end
 
-function Client.refresh(self, key, opts)
+function Client.refresh(self, key, old_value, opts)
+    if old_value ~= nil then
+        key = uri_add_param(key, "prevValue", old_value)
+    end
     return self:set(uri_add_param(uri_add_param(key, "prevExist", "true"), "refresh", "true"), nil, opts)
 end
 
@@ -304,7 +307,7 @@ function Client.announce(self, key, value, shm, opts)
                 return
             end
 
-            local r = client:refresh(key, {timeout=opts.timeout, ttl=opts.ttl})
+            local r = client:refresh(key, value, {timeout=opts.timeout, ttl=opts.ttl})
 
             local has_error = etcd.has_error(r)
             if has_error then
