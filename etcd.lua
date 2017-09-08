@@ -158,7 +158,11 @@ function Client.request(self, method, query, timeout)
         headers["Authorization"] = "Basic "..base64_encode(u["login"]..":"..pass)
     end
 
-    local url = uri_join("http://", self.addr, "/v2/keys", query)
+    local addr = u['host']
+    if u['port'] then
+        addr = addr .. ':' .. tostring(u['port'])
+    end
+    local url = uri_join("http://", addr, "/v2/keys", query)
 
     if timeout == nil then
         timeout = self.timeout
