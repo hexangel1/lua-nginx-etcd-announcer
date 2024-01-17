@@ -3,7 +3,7 @@ module("etcd", package.seeall)
 local ngx = ngx
 local math = math
 local http = require("resty.http")
-local json = require("cjson")
+local json = require("cjson.safe")
 
 function debugf(fmt, ...)
     ngx.log(ngx.DEBUG, string.format(fmt, ...))
