@@ -228,6 +228,16 @@ function Client.set(self, key, value, opts)
     return self:request("PUT", url, opts["timeout"])
 end
 
+function Client.delete(self, key, opts)
+    if opts == nil then
+        opts = {}
+    end
+
+    local url = key
+
+    return self:request("DELETE", url, opts["timeout"])
+end
+
 function Client.create(self, key, value, opts)
     return self:set(uri_add_param(key, "prevExist", "false"), value, opts)
 end
@@ -308,6 +318,15 @@ function Client.announce(self, key, value, shm, opts)
         think = function()
             if not shm:add(lock_key, true, opts.refresh) then 
                 schedule(math.random(1, opts.refresh))
+                return
+            end
+
+            if shm:get("disable_etcd_announce") then
+                local r = client:delete(key, {timeout=opts.timeout})
+                if etcd.has_error(r) then
+                    etcd.errorf("announce %s delete error: %s", key, etcd.error_message(r))
+                end
+                schedule(opts.refresh)
                 return
             end
 
